@@ -27,6 +27,8 @@ WARNING:
 -	[`3.1.23`, `3.1`](https://github.com/tianon/docker-bash/blob/3682e16bca63b20ab51745afa30156e2740fc5c6/3.1/Dockerfile)
 -	[`3.0.22`, `3.0`](https://github.com/tianon/docker-bash/blob/3682e16bca63b20ab51745afa30156e2740fc5c6/3.0/Dockerfile)
 
+[![i386/bash build status badge](https://img.shields.io/jenkins/s/https/doi-janky.infosiftr.net/job/multiarch/job/i386/job/bash.svg?label=i386/bash%20%20build%20job)](https://doi-janky.infosiftr.net/job/multiarch/job/i386/job/bash/)
+
 # Quick reference
 
 -	**Where to get help**:  
@@ -75,7 +77,7 @@ There are a few main things that are important to note regarding this image:
 ## Interactive shell
 
 ```console
-$ docker run -it --rm bash:4.4
+$ docker run -it --rm i386/bash:4.4
 bash-4.4# which bash
 /usr/local/bin/bash
 bash-4.4# echo $BASH_VERSION
@@ -85,16 +87,16 @@ bash-4.4# echo $BASH_VERSION
 ## Testing scripts via bind-mount
 
 ```console
-$ docker run -it --rm -v /path/to/script.sh:/script.sh:ro bash:4.4 bash /script.sh
+$ docker run -it --rm -v /path/to/script.sh:/script.sh:ro i386/bash:4.4 bash /script.sh
 ...
-$ docker run -it --rm -v /path/to/script.sh:/script.sh:ro bash:3.2 bash /script.sh
+$ docker run -it --rm -v /path/to/script.sh:/script.sh:ro i386/bash:3.2 bash /script.sh
 ...
 ```
 
 ## Testing scripts via `Dockerfile`
 
 ```dockerfile
-FROM bash:4.4
+FROM i386/bash:4.4
 
 COPY script.sh /
 
