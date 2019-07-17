@@ -18,7 +18,6 @@ WARNING:
 
 ## Simple Tags
 
--	[`2.0.2-linux`, `linux`](https://github.com/nats-io/nats-docker/blob/1d19738cad8d4e2c654ead45c2b5cbe3b9f29c83/amd64/Dockerfile)
 -	[`2.0.2-nanoserver`, `nanoserver`, `nanoserver-1803`](https://github.com/nats-io/nats-docker/blob/1d19738cad8d4e2c654ead45c2b5cbe3b9f29c83/windows/nanoserver-1803/Dockerfile)
 -	[`2.0.2-nanoserver-1809`, `nanoserver-1809`](https://github.com/nats-io/nats-docker/blob/1d19738cad8d4e2c654ead45c2b5cbe3b9f29c83/windows/nanoserver-1809/Dockerfile)
 -	[`2.0.2-windowsservercore`, `windowsservercore`](https://github.com/nats-io/nats-docker/blob/1d19738cad8d4e2c654ead45c2b5cbe3b9f29c83/windows/windowsservercore/Dockerfile)
@@ -26,8 +25,9 @@ WARNING:
 ## Shared Tags
 
 -	`2.0.2`, `latest`:
-	-	[`2.0.2-linux`](https://github.com/nats-io/nats-docker/blob/1d19738cad8d4e2c654ead45c2b5cbe3b9f29c83/amd64/Dockerfile)
 	-	[`2.0.2-nanoserver`](https://github.com/nats-io/nats-docker/blob/1d19738cad8d4e2c654ead45c2b5cbe3b9f29c83/windows/nanoserver-1803/Dockerfile)
+
+[![winamd64/nats build status badge](https://img.shields.io/jenkins/s/https/doi-janky.infosiftr.net/job/multiarch/job/windows-amd64/job/nats.svg?label=winamd64/nats%20%20build%20job)](https://doi-janky.infosiftr.net/job/multiarch/job/windows-amd64/job/nats/)
 
 # Quick reference
 
@@ -81,15 +81,15 @@ The routing protocol has been dramatically improved and adds support for account
 # For instance, to run the NATS Server and have it listen on port 4444,
 # you would have to run like this:
 #
-#   docker run -p 4444:4444 nats -p 4444
+#   docker run -p 4444:4444 winamd64/nats -p 4444
 #
 # Or, if you want to publish the port 4444 as a different port, for example 5555:
 #
-#   docker run -p 5555:4444 nats -p 4444
+#   docker run -p 5555:4444 winamd64/nats -p 4444
 #
 # Check "docker run" for more information.
 
-$ docker run -d --name nats-main -p 4222:4222 -p 6222:6222 -p 8222:8222 nats
+$ docker run -d --name nats-main -p 4222:4222 -p 6222:6222 -p 8222:8222 winamd64/nats
 [INF] Starting nats-server version 2.0.2
 [INF] Git commit [6a40503]
 [INF] Starting http monitor on 0.0.0.0:8222
@@ -104,10 +104,10 @@ $ docker run -d --name nats-main -p 4222:4222 -p 6222:6222 -p 8222:8222 nats
 # Note that since you are passing arguments, this overrides the CMD section
 # of the Dockerfile, so you need to pass all arguments, including the
 # config file.
-$ docker run -d --name=nats-2 --link nats-main -p 4222:4222 -p 6222:6222 -p 8222:8222 nats -c nats-server.conf --routes=nats-route://ruser:T0pS3cr3t@nats-main:6222
+$ docker run -d --name=nats-2 --link nats-main -p 4222:4222 -p 6222:6222 -p 8222:8222 winamd64/nats -c nats-server.conf --routes=nats-route://ruser:T0pS3cr3t@nats-main:6222
 
 # If you want to verify the routes are connected, try this instead:
-$ docker run -d --name=nats-2 --link nats-main -p 4222:4222 -p 6222:6222 -p 8222:8222 nats -c nats-server.conf --routes=nats-route://ruser:T0pS3cr3t@nats-main:6222 -DV
+$ docker run -d --name=nats-2 --link nats-main -p 4222:4222 -p 6222:6222 -p 8222:8222 winamd64/nats -c nats-server.conf --routes=nats-route://ruser:T0pS3cr3t@nats-main:6222 -DV
 [INF] Starting nats-server version 2.0.2
 [DBG] Go build version go1.11.12
 [INF] Git commit [6a40503]
@@ -209,13 +209,13 @@ Common Options:
 
 # Image Variants
 
-The `nats` images come in many flavors, each designed for a specific use case.
+The `winamd64/nats` images come in many flavors, each designed for a specific use case.
 
-## `nats:<version>`
+## `winamd64/nats:<version>`
 
 This is the defacto image. If you are unsure about what your needs are, you probably want to use this one. It is designed to be used both as a throw away container (mount your source code and start the container to start your app), as well as the base to build other images off of.
 
-## `nats:<version>-windowsservercore`
+## `winamd64/nats:<version>-windowsservercore`
 
 This image is based on [Windows Server Core (`microsoft/windowsservercore`)](https://hub.docker.com/r/microsoft/windowsservercore/). As such, it only works in places which that image does, such as Windows 10 Professional/Enterprise (Anniversary Edition) or Windows Server 2016.
 
