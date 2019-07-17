@@ -21,6 +21,8 @@ WARNING:
 -	[`1.36.0-buster`, `1-buster`, `1.36-buster`, `buster`](https://github.com/rust-lang-nursery/docker-rust/blob/948972727f24fc3e1062a9442047f0dea4e3db50/1.36.0/buster/Dockerfile)
 -	[`1.36.0-slim-buster`, `1-slim-buster`, `1.36-slim-buster`, `slim-buster`](https://github.com/rust-lang-nursery/docker-rust/blob/948972727f24fc3e1062a9442047f0dea4e3db50/1.36.0/buster/slim/Dockerfile)
 
+[![arm64v8/rust build status badge](https://img.shields.io/jenkins/s/https/doi-janky.infosiftr.net/job/multiarch/job/arm64v8/job/rust.svg?label=arm64v8/rust%20%20build%20job)](https://doi-janky.infosiftr.net/job/multiarch/job/arm64v8/job/rust/)
+
 # Quick reference
 
 -	**Where to get help**:  
@@ -61,7 +63,7 @@ Rust is a systems programming language sponsored by Mozilla Research. It is desi
 The most straightforward way to use this image is to use a Rust container as both the build and runtime environment. In your `Dockerfile`, writing something along the lines of the following will compile and run your project:
 
 ```dockerfile
-FROM rust:1.31
+FROM arm64v8/rust:1.31
 
 WORKDIR /usr/src/myapp
 COPY . .
@@ -83,16 +85,16 @@ $ docker run -it --rm --name my-running-app my-rust-app
 There may be occasions where it is not appropriate to run your app inside a container. To compile, but not run your app inside the Docker instance, you can write something like:
 
 ```console
-$ docker run --rm --user "$(id -u)":"$(id -g)" -v "$PWD":/usr/src/myapp -w /usr/src/myapp rust:1.23.0 cargo build --release
+$ docker run --rm --user "$(id -u)":"$(id -g)" -v "$PWD":/usr/src/myapp -w /usr/src/myapp arm64v8/rust:1.23.0 cargo build --release
 ```
 
 This will add your current directory, as a volume, to the container, set the working directory to the volume, and run the command `cargo build --release`. This tells Cargo, Rust's build system, to compile the crate in `myapp` and output the executable to `target/release/myapp`.
 
 # Image Variants
 
-The `rust` images come in many flavors, each designed for a specific use case.
+The `arm64v8/rust` images come in many flavors, each designed for a specific use case.
 
-## `rust:<version>`
+## `arm64v8/rust:<version>`
 
 This is the defacto image. If you are unsure about what your needs are, you probably want to use this one. It is designed to be used both as a throw away container (mount your source code and start the container to start your app), as well as the base to build other images off of.
 
@@ -100,9 +102,9 @@ This tag is based off of [`buildpack-deps`](https://hub.docker.com/_/buildpack-d
 
 Some of these tags may have names like buster or stretch in them. These are the suite code names for releases of [Debian](https://wiki.debian.org/DebianReleases) and indicate which release the image is based on.
 
-## `rust:<version>-slim`
+## `arm64v8/rust:<version>-slim`
 
-This image does not contain the common packages contained in the default tag and only contains the minimal packages needed to run `rust`. Unless you are working in an environment where *only* the `rust` image will be deployed and you have space constraints, we highly recommend using the default image of this repository.
+This image does not contain the common packages contained in the default tag and only contains the minimal packages needed to run `arm64v8/rust`. Unless you are working in an environment where *only* the `arm64v8/rust` image will be deployed and you have space constraints, we highly recommend using the default image of this repository.
 
 # License
 
